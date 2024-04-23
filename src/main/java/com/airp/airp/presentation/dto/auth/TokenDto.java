@@ -8,17 +8,17 @@ public class TokenDto {
 
 	private static final String TYPE_TOKEN = "Bearer";
 
-	private String accessToken;
+	private String token;
 
 	public TokenDto() {
 	}
 
-	public TokenDto(String accessToken) {
-		this.accessToken = StringUtils.join(of(TYPE_TOKEN, accessToken), " ");
+	public TokenDto(String token) {
+		this.token = StringUtils.join(of(TYPE_TOKEN, token), " ");
 	}
 
-	public String getAccessToken() {
-		return accessToken;
+	public String getToken() {
+		return token;
 	}
 
 }

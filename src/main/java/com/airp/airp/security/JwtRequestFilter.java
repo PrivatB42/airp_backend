@@ -33,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        if (request.getServletPath().contains("/ws/auth")) {
+        if (request.getServletPath().contains("/ws/securite/auth")) {
             filterChain.doFilter(request, response);
             return;
         }

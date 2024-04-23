@@ -15,22 +15,22 @@ import static io.swagger.v3.oas.annotations.enums.SecuritySchemeType.APIKEY;
 @SpringBootApplication
 @SecurityScheme(name = "Authorization", scheme = "basic", type = APIKEY, in = HEADER)
 public class AirpApplication extends SpringBootServletInitializer {
-	public static final Logger logger = LoggerFactory.getLogger(AirpApplication.class);
+	public static final Logger log = LoggerFactory.getLogger(AirpApplication.class);
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(AirpApplication.class, args);
-		logger.info("""
+		log.info("""
 
-                ================================================================================================
-                                                   AIRP est lancée..............!
-                ================================================================================================"""
+				================================================================================================
+				                                   AIRP started...
+				================================================================================================"""
 		);
 	}
 
 	@Override
-	protected SpringApplicationBuilder configure (SpringApplicationBuilder application) {
-		return application.sources (AirpApplication.class);
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(AirpApplication.class);
 	}
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ws/auth")
+@RequestMapping("${api.prefix}/securite")
 public class SecurityController {
 
 	private final SecurityService securityService;
@@ -26,7 +26,7 @@ public class SecurityController {
 	 * @param authDto les informations de connexion.
 	 * @return le token d'authentification
 	 */
-	@PostMapping
+	@PostMapping("/auth")
 	@Logged
 	public TokenDto authentification(@RequestBody AuthDto authDto) {
 		return securityService.autentifier(authDto);
