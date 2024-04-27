@@ -7,11 +7,19 @@ package com.airp.airp.exception.configuration;
  */
 public enum CodeErreurTechnique implements AbstractCodeErreur {
 	AUCUN_RESULTAT(9001L),
+
+	// Erreurs utilisateur
 	ACCES_REFUSE(9002L),
 	MOT_DE_PASSE_INCORRECT(9003L),
 	UTILISATEUR_INCONNU(9004L),
 	UTILISATEUR_INNACTIF(9005L),
 	ERREUR_VERSION(9006L),
+
+	// Erreurs pharmacie
+	PHARMACIE_INCONNUE(9100L),
+	PHARMACIE_INACTIVE(9101L),
+	PHARMACIE_EXISTANTE(9102L),
+
 	ERREUR_INCONNUE(9999L);
 
 	private final Long code;
