@@ -2,7 +2,7 @@ CREATE TABLE utilisateur
 (
     id INT8 PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL DEFAULT '$2a$10$KdGQLTDCV.nw5zblVb3JN.9DMrLUJi8lLJS0ocvmH4ryrSI7DBF/e', -- Mot de passe par défaut eburtis2020
     nom VARCHAR(100) NOT NULL,
     prenoms VARCHAR(100) NOT NULL,
     role VARCHAR(100) NOT NULL,
