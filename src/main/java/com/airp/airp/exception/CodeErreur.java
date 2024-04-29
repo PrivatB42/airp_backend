@@ -1,14 +1,9 @@
 package com.airp.airp.exception;
 
+import com.airp.airp.exception.configuration.AbstractCodeErreur;
 
-import com.airp.airp.exception.configuration.HasCodeErreur;
-
-public enum CodeErreur implements HasCodeErreur {
-    COMPTE_EXISTANT(7001L),
-    NOM_UTILISATEUR_MOT_PASSE_INCORRECT(7002L),
-    COMPTE_INEXISTANT(7006L),
-    ACCESS_REFUSE(7008L),
-    COMPTE_INACTIF(7009L);
+public enum CodeErreur implements AbstractCodeErreur {
+    ;
 
     /**
      * Valeur minimale des codes de cette application.
@@ -33,4 +28,11 @@ public enum CodeErreur implements HasCodeErreur {
     public Long getCode() {
         return code;
     }
+
+    @Override
+    public String getType() {
+        return this.name();
+    }
+
+
 }

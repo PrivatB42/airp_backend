@@ -1,55 +1,51 @@
 package com.airp.airp.exception;
 
 import com.airp.airp.exception.configuration.AbstractApplicationException;
-import com.airp.airp.exception.configuration.HasCodeErreur;
+import com.airp.airp.exception.configuration.CodeErreurTechnique;
 
-import static com.airp.airp.exception.CodeErreur.*;
+import java.util.Collection;
+
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.ACCES_REFUSE;
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.MOT_DE_PASSE_INCORRECT;
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.UTILISATEUR_INCONNU;
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.UTILISATEUR_INNACTIF;
+import static java.util.Collections.singleton;
 
 public class UtilisateurException extends AbstractApplicationException {
 
-	/**
-	 * Construit une exception
-	 */
-	private UtilisateurException(HasCodeErreur codeErreur, String message, Object... params) {
-		super(codeErreur, message, params);
+	private UtilisateurException(CodeErreurTechnique codeErreur, String message) {
+		super(codeErreur.getCode(), message);
+	}
+
+	private UtilisateurException(CodeErreurTechnique codeErreur, String message, Collection<String> parametres) {
+		super(codeErreur.getCode(), message, parametres);
 	}
 
 	/**
-	 * Exception pour utlilisateur deja existant
+	 * Exception levée si aucun utilisateur n'est trouvé.
 	 */
-	public static UtilisateurException utilisateurExistantException() {
-		return new UtilisateurException(CodeErreur.COMPTE_EXISTANT, "Un utilisateur existe déjà avec cet username");
+	public static UtilisateurException motDePasseIncorrect() {
+		return new UtilisateurException(MOT_DE_PASSE_INCORRECT, "Le mot de passe saisi est incorrect");
 	}
 
 	/**
-	 * Exception pour login ou mot de passe incorrect
+	 * Exception levée si aucun utilisateur n'est trouvé.
 	 */
-	public static UtilisateurException nomUtilisateurOuMotPasseIncorrectException() {
-		return new UtilisateurException(NOM_UTILISATEUR_MOT_PASSE_INCORRECT, "Username ou mot de passe incorrect.");
-	}
-
-	public static UtilisateurException utilisateurInExistantException() {
-		return new UtilisateurException(CodeErreur.COMPTE_INEXISTANT, "Désolé, un compte avec ce username existe deja");
+	public static UtilisateurException utilisateurInactif() {
+		return new UtilisateurException(UTILISATEUR_INNACTIF, "Cet utilisateur est inactif. Contactez votre administrateur");
 	}
 
 	/**
-	 * Exception pour utilisateur inactif
+	 * Exception levée si aucun utilisateur n'est trouvé.
 	 */
-	public static UtilisateurException utilisateurInactifException() {
-		return new UtilisateurException(COMPTE_INACTIF, "Votre compte est inactif. Veuillez contacter le service client");
+	public static UtilisateurException utiilisateurInconnu(String nomUtilisateur) {
+		return new UtilisateurException(UTILISATEUR_INCONNU, "Aucun utilisateur trouvé avec le login %s", singleton(nomUtilisateur));
 	}
 
 	/**
-	 * Exception pour access non autorisé
+	 * Exception levée lorsque le token a expiré.
 	 */
-	public static UtilisateurException accesNonAutoriseException() {
-		return new UtilisateurException(ACCESS_REFUSE, "Vous ne disposez pas des droits d'accès à cet espace.");
-	}
-
-	/**
-	 * Exception token invalide
-	 */
-	public static UtilisateurException tokenInvalideException() {
-		return new UtilisateurException(ACCESS_REFUSE, "Desolé votre token n'est plus valide.");
+	public static UtilisateurException sessionExpiree() {
+		return new UtilisateurException(ACCES_REFUSE, "Desolé votre token n'est plus valide");
 	}
 }

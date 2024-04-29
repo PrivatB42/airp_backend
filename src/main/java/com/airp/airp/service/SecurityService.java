@@ -6,19 +6,19 @@ import com.airp.airp.presentation.dto.auth.AuthDto;
 import com.airp.airp.presentation.dto.auth.TokenDto;
 import com.airp.airp.repository.UtilisateurRepository;
 import com.airp.airp.security.JwtTokenUtils;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 
-import static com.airp.airp.exception.UtilisateurException.*;
+import static com.airp.airp.exception.UtilisateurException.motDePasseIncorrect;
+import static com.airp.airp.exception.UtilisateurException.utiilisateurInconnu;
+import static com.airp.airp.exception.UtilisateurException.utilisateurInactif;
 
 @Service
 public class SecurityService implements UserDetailsService {
@@ -40,11 +40,9 @@ public class SecurityService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Utilisateur utilisateur = utilisateurRepository.rechercherParUsername(username).orElse(null);
-        if (utilisateur != null) {
-            return utilisateur.buildUser();
-        }
-        throw utilisateurInExistantException();
+        return utilisateurRepository.rechercherParUsername(username)
+                .map(Utilisateur::buildUser)
+                .orElseThrow(() -> utiilisateurInconnu(username));
     }
 
     /**
@@ -56,11 +54,14 @@ public class SecurityService implements UserDetailsService {
      * @throws UsernameNotFoundException Exception levé lorsqu'aucun utilisateur ne correspond à ce username.
      */
     private Utilisateur rechercherUtilisateurParUsernameEtPassword(String username, String password) throws UsernameNotFoundException {
-        Utilisateur utilisateur = utilisateurRepository.rechercherParUsername(username).orElse(null);
-        if (utilisateur != null && (SecurityService.comparerPassword(password, utilisateur.getPassword()))) {
+        Utilisateur utilisateur = utilisateurRepository.rechercherParUsername(username)
+                .orElseThrow(() -> utiilisateurInconnu(username));
+        if (SecurityService.comparerPassword(password, utilisateur.getPassword())) {
                 return utilisateur;
         }
-        throw nomUtilisateurOuMotPasseIncorrectException();
+        else {
+            throw motDePasseIncorrect();
+        }
     }
 
     /**
@@ -73,7 +74,7 @@ public class SecurityService implements UserDetailsService {
     public TokenDto autentifier(AuthDto authDto) {
         Utilisateur utilisateur = rechercherUtilisateurParUsernameEtPassword(authDto.getUsername(), authDto.getPassword());
         if (utilisateur.getStatut().equals(StatutUtilisateur.INACTIF)) {
-            throw utilisateurInactifException();
+            throw utilisateurInactif();
         }
 
         SecurityContextHolder.clearContext();

@@ -1,52 +1,65 @@
 package com.airp.airp.exception.configuration;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.apache.commons.lang3.StringUtils.join;
 
 /**
  * Objet utilisé pour transporter une erreur de l'application, spécifiés par son type, son code et son message.<br/>
  */
 public class ApplicationErreur {
 
-	private Long code;
-	private String type;
-	private String message;
-	private ExceptionUserDisplay display;
+	private final Long code;
+	private final String type;
+	private final String message;
+	private final Collection<String> parametres = new ArrayList<>();
 
-	public ApplicationErreur(String type, String message, Long code, ExceptionUserDisplay display) {
-		this.type = type;
+	public ApplicationErreur(AbstractCodeErreur type, String message) {
+		this.code = type.getCode();
+		this.type = type.getType();
 		this.message = message;
-		this.code = code;
-		this.display = display;
 	}
 
-	public ApplicationErreur(String type, String message, Long code) {
-		this.type = type;
+	public ApplicationErreur(Long codeErreur, String typeErreur, String message) {
+		this.code = codeErreur;
+		this.type = typeErreur;
 		this.message = message;
-		this.code = code;
 	}
 
-	public String getType() {
-		return type;
+	public ApplicationErreur(Long codeErreur, String typeErreur, String message, Collection<String> parametres) {
+		this(codeErreur, typeErreur, message);
+		if (CollectionUtils.isNotEmpty(parametres)) {
+			this.parametres.addAll(parametres);
+		}
+	}
+
+
+	public Long getCode() {
+		return code;
 	}
 
 	public String getMessage() {
 		return message;
 	}
 
-	public Long getCode() {
-		return code;
+	public String getType() {
+		return type;
 	}
 
-	public ExceptionUserDisplay getDisplay() {
-		return display;
+	public Collection<String> getParametres() {
+		return parametres;
 	}
 
 	/**
-	 * Retourne le message préfixé par le code de l'erreur
+	 * Retourne le message préfixé par le code de l'erreur.
 	 *
-	 * @return
+	 * @return le message préfixé par le code de l'erreur.
 	 */
 	public String getMessageAvecCode() {
-		return MessageFormat.format("[{0,number,0000}] {1}", getCode(), getMessage());
+		return MessageFormat.format("[{0,number,0000}] {1}", getCode(), String.format(getMessage(), join(parametres, ", ")));
 	}
 }

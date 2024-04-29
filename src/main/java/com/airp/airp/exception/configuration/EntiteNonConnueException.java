@@ -1,5 +1,9 @@
 package com.airp.airp.exception.configuration;
 
+import java.util.Collection;
+
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.AUCUN_RESULTAT;
+
 /**
  * Exception lancée lorsqu'un objet Entity du modèle n'a pas été trouvé.<br/>
  *
@@ -7,7 +11,7 @@ package com.airp.airp.exception.configuration;
  */
 public class EntiteNonConnueException extends AbstractApplicationException {
 
-	public EntiteNonConnueException(String cleTraduction, Object... params) {
-		super(CodeErreurTechnique.ENTITE_NON_CONNUE, cleTraduction, params);
+	public EntiteNonConnueException(String message, Collection<String> params) {
+		super(AUCUN_RESULTAT.getCode(), message, params);
 	}
 }

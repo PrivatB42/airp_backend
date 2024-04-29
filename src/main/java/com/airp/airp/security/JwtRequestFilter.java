@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.airp.airp.exception.UtilisateurException.tokenInvalideException;
+import static com.airp.airp.exception.UtilisateurException.sessionExpiree;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -56,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
             else {
-                  throw tokenInvalideException();
+                  throw sessionExpiree();
             }
         }
         filterChain.doFilter(request, response);

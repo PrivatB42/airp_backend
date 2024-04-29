@@ -3,13 +3,11 @@ package com.airp.airp.facade;
 import com.airp.airp.domain.Utilisateur;
 import com.airp.airp.presentation.dto.UtilisateurDto;
 import com.airp.airp.repository.UtilisateurRepository;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.airp.airp.exception.UtilisateurException.utilisateurExistantException;
 import static com.airp.airp.service.SecurityService.crypterPassword;
 import static java.util.Comparator.comparing;
 
@@ -43,11 +41,6 @@ public class UtilisateurFacade {
 	 */
 	@Transactional
 	public void enregistrer(UtilisateurDto utilisateurDto) {
-		Utilisateur utilisateurExistant = utilisateurRepository.rechercherParUsername(utilisateurDto.getUsername())
-				.orElse(null);
-		if (utilisateurExistant != null) {
-			throw utilisateurExistantException();
-		}
 		Utilisateur utilisateur = new Utilisateur(utilisateurDto.getUsername(),
 													crypterPassword(utilisateurDto.getPassword()),
 													utilisateurDto.getNom(),

@@ -21,8 +21,8 @@ public class DataValidationException extends AbstractApplicationException {
 	 * @param constraintViolations les violations de contrainte.
 	 * @param code code erreur unique.
 	 */
-	public <T> DataValidationException(String msg, Set<ConstraintViolation<T>> constraintViolations, HasCodeErreur code) {
-		super(code, msg);
+	public <T> DataValidationException(String msg, Set<ConstraintViolation<T>> constraintViolations, AbstractCodeErreur code) {
+		super(code.getCode(), msg);
 		this.constraintViolations = new HashSet<>();
 		this.constraintViolations.addAll(constraintViolations);
 	}

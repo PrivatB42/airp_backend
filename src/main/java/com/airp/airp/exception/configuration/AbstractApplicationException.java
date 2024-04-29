@@ -1,42 +1,35 @@
 package com.airp.airp.exception.configuration;
 
-import java.text.MessageFormat;
+import java.util.Collection;
 
 /**
- * Classe parente pour toutes les exceptions liées à un code erreur.<br/>
+ * Classe parente pour toutes les exceptions liées à un code erreur.
  * Le code erreur doit implémenter l'interface HasCodeErreur.<br/>
  * Chaque code erreur doit être utilisé par une et une seule exception.
  *
- * @see HasCodeErreur
+ * @see AbstractCodeErreur
  * @see ApplicationErreur
  */
-@SuppressWarnings("serial")
-
 public abstract class AbstractApplicationException extends RuntimeException {
 
-	private String messageTraduit;
+	private final Long codeErreur;
+	private final String typeErreur;
+	private final String message;
+	private Collection<String> parametres;
 
-	/**
-	 * Chaque exception étendant cette classe doit définir un code unique permettant de retrouver rapidement le type d'erreur applicative rencontrée. Le code doit être déclaré dans l'enum code erreur
-	 * afin d'assurer l'unicité du code.
-	 */
-	private HasCodeErreur codeErreur;
+	protected AbstractApplicationException(Long codeErreur, String message) {
+		this(codeErreur, TypeErreur.ERROR.name(), message);
+	}
 
-	/**
-	 * Les paramètres éventuels pour créer le message de l'exception.
-	 */
-	private Object[] params;
-
-	/**
-	 * La façon dont l'exception est prévue pour être affichée à l'utilisateur.
-	 */
-	protected ExceptionUserDisplay display;
-
-	public AbstractApplicationException(HasCodeErreur codeErreur, String messageTraduit, Object... params) {
+	protected AbstractApplicationException(Long codeErreur, String typeErreur, String message) {
 		this.codeErreur = codeErreur;
-		this.params = params;
-		this.messageTraduit = messageTraduit;
-		this.display = ExceptionUserDisplay.ERROR;
+		this.message = message;
+		this.typeErreur = typeErreur;
+	}
+
+	protected AbstractApplicationException(Long codeErreur, String message, Collection<String> parametres) {
+		this(codeErreur, message);
+		this.parametres = parametres;
 	}
 
 	/**
@@ -46,8 +39,7 @@ public abstract class AbstractApplicationException extends RuntimeException {
 	 * @return le message d'erreur.
 	 */
 	public ApplicationErreur getApplicationErreur() {
-
-		return new ApplicationErreur(codeErreur.toString(), getMessage(), codeErreur.getCode(), display);
+		return new ApplicationErreur(codeErreur, typeErreur, getMessage(), parametres);
 	}
 
 	/**
@@ -56,15 +48,11 @@ public abstract class AbstractApplicationException extends RuntimeException {
 	 * @return le message d'erreur.
 	 */
 	public final String getMessageAvecCode() {
-		return MessageFormat.format("[{0,number,0000}] {1}", codeErreur.getCode(), getMessage());
-	}
-
-	private String getMessageTraduit() {
-		return messageTraduit;
+		return getApplicationErreur().getMessageAvecCode();
 	}
 
 	@Override
 	public String getMessage() {
-		return getMessageTraduit() == null ? super.getMessage() : getMessageTraduit();
+		return message;
 	}
 }

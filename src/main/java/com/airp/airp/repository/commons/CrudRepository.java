@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.airp.airp.utils.CollectionUtils.isNullOrEmpty;
+import static java.util.Collections.singleton;
 import static java.util.stream.Collectors.toList;
 
 public interface CrudRepository<T extends AbstractEntity> {
@@ -175,11 +176,11 @@ public interface CrudRepository<T extends AbstractEntity> {
 	}
 
 	default EntiteNonConnueException entiteNonTrouveeParId(long id) {
-		return new EntiteNonConnueException("Aucun résultat trouvé pour l'id %s", id);
+		return new EntiteNonConnueException("Aucun résultat trouvé pour l'id %s", singleton(String.valueOf(id)));
 	}
 
 	default EntiteNonConnueException entitesNonTrouveesParIds(Collection<Long> ids) {
-		return new EntiteNonConnueException("Aucun résultat trouvé pour les ids %s", ids.stream().map(Object::toString).collect(Collectors.joining(", ")));
+		return new EntiteNonConnueException("Aucun résultat trouvé pour les ids %s", ids.stream().map(Object::toString).collect(Collectors.toSet()));
 	}
 
 	default void delete(long entityId) {

@@ -36,7 +36,7 @@ public class Utilisateur extends AbstractEntity {
 
 
     public User buildUser() {
-        return new User(username, password, singleton(new SimpleGrantedAuthority(role.name())));
+        return new User(getUsername(), getPassword(), singleton(new SimpleGrantedAuthority(getRole().name())));
     }
 
     public Utilisateur() {
