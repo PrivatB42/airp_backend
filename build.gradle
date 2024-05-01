@@ -127,3 +127,13 @@ clean.doLast {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task updateAppProperties(dependsOn: processResources) {
+	doLast {
+		def cmd = "git rev-parse HEAD"
+		def proc = cmd.execute()
+		ant.replace(file: "build/resources/main/application.properties", token: "[app.version]", value: version)
+		ant.replace(file: "build/resources/main/application.properties", token: "[app.git.sha1]", value: proc.text.trim())
+	}
+}
+classes.dependsOn updateAppProperties

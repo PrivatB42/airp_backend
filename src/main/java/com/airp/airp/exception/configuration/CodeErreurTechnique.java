@@ -11,6 +11,7 @@ public enum CodeErreurTechnique implements AbstractCodeErreur {
 	MOT_DE_PASSE_INCORRECT(9003L),
 	UTILISATEUR_INCONNU(9004L),
 	UTILISATEUR_INNACTIF(9005L),
+	ERREUR_VERSION(9006L),
 	ERREUR_INCONNUE(9999L);
 
 	private final Long code;
