@@ -34,29 +34,42 @@ public class Pharmacie extends AbstractEntity {
     @Column(nullable = false)
     private String quartier;
 
-    @Column(nullable = false, name = "heure_ouverture")
+    @Column(name = "heure_ouverture")
     private LocalTime heureOuverture;
 
-    @Column(nullable = false, name = "heure_fermeture")
+    @Column(name = "heure_fermeture")
     private LocalTime heureFermeture;
 
-    @Column(nullable = false, name = "nom_gerant")
+    @Column(name = "nom_gerant")
     private String nomGerant;
 
-    @Column(nullable = false)
+    @Column
     private String contact;
 
     @Column(nullable = false)
     private String statut;
 
-    @Column(nullable = false)
+    @Column
     private String latitude;
 
-    @Column(nullable = false)
+    @Column
     private String longitude;
 
     public Pharmacie() {
 
+    }
+
+    public Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture, LocalTime heureFermeture,
+                     String nomGerant, String contact, String statut) {
+        this.numero = numero;
+        this.nom = nom;
+        this.ville = ville;
+        this.quartier = quartier;
+        this.heureOuverture = heureOuverture;
+        this.heureFermeture = heureFermeture;
+        this.nomGerant = nomGerant;
+        this.contact = contact;
+        this.statut = statut;
     }
 
     public Pharmacie(PharmacieDto pharmacieDto) {
@@ -71,6 +84,18 @@ public class Pharmacie extends AbstractEntity {
         this.statut = pharmacieDto.getStatut();
         this.latitude = pharmacieDto.getLatitude();
         this.longitude = pharmacieDto.getLongitude();
+    }
+
+    public void mettreAJour(String numero, String nom, String ville, String quartier, LocalTime heureOuverture, LocalTime heureFermeture, String nomGerant, String contact, String statut) {
+        this.numero = numero;
+        this.nom = nom;
+        this.ville = ville;
+        this.quartier = quartier;
+        this.heureOuverture = heureOuverture;
+        this.heureFermeture = heureFermeture;
+        this.nomGerant = nomGerant;
+        this.contact = contact;
+        this.statut = statut;
     }
 
     public Long getId() {

@@ -5,7 +5,9 @@ import com.airp.airp.facade.PharmacieFacade;
 import com.airp.airp.presentation.dto.PharmacieDto;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,6 +41,12 @@ public class PharmacieController {
     @Logged
     public void enregistrer(@RequestBody PharmacieDto pharmacieDto) {
         pharmacieFacade.enregistrer(pharmacieDto);
+    }
+
+    @PostMapping("/import")
+    @Logged
+    public void importer(@RequestParam("fichier") MultipartFile fichier) throws IOException {
+        pharmacieFacade.enregistrerExcelCsv(fichier);
     }
 
 }
