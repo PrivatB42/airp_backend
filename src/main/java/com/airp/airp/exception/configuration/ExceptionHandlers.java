@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 
 import static com.airp.airp.exception.configuration.CodeErreurTechnique.ACCES_REFUSE;
 import static com.airp.airp.exception.configuration.CodeErreurTechnique.AUCUN_RESULTAT;
+import static com.airp.airp.exception.configuration.CodeErreurTechnique.ERREUR_INCONNUE;
 
 /**
  * Gestion des exceptions avec spring MVC.
@@ -114,5 +115,14 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 		log.error(ex.getMessageAvecCode());
 		log.debug(ex.getMessage(), ex);
 		setReponseJson(ex.getApplicationErreur(), response);
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public void handlexceptionInconnue(RuntimeException ex, HttpServletResponse response) {
+		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		ApplicationErreur erreur = new ApplicationErreur(ERREUR_INCONNUE, "Une erreur inattendue s'est produite. Veuillez contacter votre administrateur.");
+		log.error(erreur.getMessageAvecCode());
+		log.debug(ex.getMessage(), ex);
+		setReponseJson(erreur, response);
 	}
 }

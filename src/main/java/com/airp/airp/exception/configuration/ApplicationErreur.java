@@ -6,6 +6,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.airp.airp.exception.configuration.TypeErreur.ERROR;
 import static org.apache.commons.lang3.StringUtils.join;
 
 /**
@@ -20,7 +21,7 @@ public class ApplicationErreur {
 
 	public ApplicationErreur(AbstractCodeErreur type, String message) {
 		this.code = type.getCode();
-		this.type = type.getType();
+		this.type = ERROR.name();
 		this.message = message;
 	}
 
