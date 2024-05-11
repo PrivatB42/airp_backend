@@ -72,6 +72,10 @@ public class Pharmacie extends AbstractEntity {
         this.statut = statut;
     }
 
+    public Pharmacie(String numero) {
+        this.numero = numero;
+    }
+    
     public Pharmacie(PharmacieDto pharmacieDto) {
         this.numero = pharmacieDto.getNumero();
         this.nom = pharmacieDto.getNom();

@@ -3,6 +3,7 @@ package com.airp.airp.controller;
 import com.airp.airp.configuration.logger.Logged;
 import com.airp.airp.facade.PharmacieFacade;
 import com.airp.airp.presentation.dto.PharmacieDto;
+import com.airp.airp.service.ExcelService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +17,11 @@ import java.util.List;
 public class PharmacieController {
 
     private final PharmacieFacade pharmacieFacade;
+    private final ExcelService excelService;
 
-    public PharmacieController(PharmacieFacade pharmacieFacade) {
+    public PharmacieController(PharmacieFacade pharmacieFacade, ExcelService excelService) {
         this.pharmacieFacade = pharmacieFacade;
+        this.excelService = excelService;
     }
 
     /**
@@ -46,7 +49,6 @@ public class PharmacieController {
     @PostMapping("/import")
     @Logged
     public void importer(@RequestParam("fichier") MultipartFile fichier) throws IOException {
-        pharmacieFacade.enregistrerExcelCsv(fichier);
+        excelService.enregistrerExcelCsv(fichier);
     }
-
 }
