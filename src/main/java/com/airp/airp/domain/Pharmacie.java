@@ -33,28 +33,74 @@ public class Pharmacie extends AbstractEntity {
 	@Column(nullable = false)
 	private String quartier;
 
-	@Column(nullable = false, name = "heure_ouverture")
+	@Column(name = "heure_ouverture")
 	private LocalTime heureOuverture;
 
-	@Column(nullable = false, name = "heure_fermeture")
+	@Column(name = "heure_fermeture")
 	private LocalTime heureFermeture;
 
-	@Column(nullable = false, name = "nom_gerant")
+	@Column(name = "nom_gerant")
 	private String nomGerant;
 
-	@Column(nullable = false)
+	@Column
 	private String contact;
 
-	@Column(nullable = false)
-	private String statut;
+	private String statut = "ACTIF";
 
-	@Column(nullable = false)
+	@Column
 	private String latitude;
 
-	@Column(nullable = false)
+	@Column
 	private String longitude;
 
 	public Pharmacie() {
+	}
+
+	protected Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture,
+						LocalTime heureFermeture, String nomGerant, String contact, String statut) {
+		this.numero = numero;
+		this.nom = nom;
+		this.ville = ville;
+		this.quartier = quartier;
+		this.heureOuverture = heureOuverture;
+		this.heureFermeture = heureFermeture;
+		this.nomGerant = nomGerant;
+		this.contact = contact;
+		this.statut = statut;
+	}
+
+	protected Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture,
+						LocalTime heureFermeture, String nomGerant, String contact, String statut, String latitude, String longitude) {
+		this(numero, nom, ville, quartier, heureOuverture, heureFermeture, nomGerant, contact, statut);
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	/**
+	 * Crée une pharmacie en settant le numéro
+	 *
+	 * @param numero le numero de la pharmacie
+	 */
+	public Pharmacie(String numero) {
+		this.numero = numero;
+	}
+
+	/**
+	 * Met à jour les données de la pharmacie
+	 *
+	 * @param pharmacie la pharmacie contenant les données à mettre à jour
+	 */
+	public void mettreAJour(Pharmacie pharmacie) {
+		this.setNumero(pharmacie.getNumero());
+		this.setNom(pharmacie.getNom());
+		this.setVille(pharmacie.getVille());
+		this.setQuartier(pharmacie.getQuartier());
+		this.setNomGerant(pharmacie.getNomGerant());
+		this.setContact(pharmacie.getContact());
+		this.setLongitude(pharmacie.getLongitude());
+		this.setLatitude(pharmacie.getLatitude());
+		this.setHeureOuverture(pharmacie.getHeureOuverture());
+		this.setHeureFermeture(pharmacie.getHeureFermeture());
 	}
 
 	public Long getId() {
@@ -105,47 +151,47 @@ public class Pharmacie extends AbstractEntity {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	protected void setNumero(String numero) {
 		this.numero = numero;
 	}
 
-	public void setNom(String nom) {
+	protected void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	public void setVille(String ville) {
+	protected void setVille(String ville) {
 		this.ville = ville;
 	}
 
-	public void setQuartier(String quartier) {
+	protected void setQuartier(String quartier) {
 		this.quartier = quartier;
 	}
 
-	public void setHeureOuverture(LocalTime heureOuverture) {
+	protected void setHeureOuverture(LocalTime heureOuverture) {
 		this.heureOuverture = heureOuverture;
 	}
 
-	public void setHeureFermeture(LocalTime heureFermeture) {
+	protected void setHeureFermeture(LocalTime heureFermeture) {
 		this.heureFermeture = heureFermeture;
 	}
 
-	public void setNomGerant(String nomGerant) {
+	protected void setNomGerant(String nomGerant) {
 		this.nomGerant = nomGerant;
 	}
 
-	public void setContact(String contact) {
+	protected void setContact(String contact) {
 		this.contact = contact;
 	}
 
-	public void setStatut(String statut) {
+	protected void setStatut(String statut) {
 		this.statut = statut;
 	}
 
-	public void setLatitude(String latitude) {
+	protected void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
-	public void setLongitude(String longitude) {
+	protected void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 }

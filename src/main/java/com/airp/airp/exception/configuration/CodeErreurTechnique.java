@@ -20,6 +20,10 @@ public enum CodeErreurTechnique implements AbstractCodeErreur {
 	PHARMACIE_INACTIVE(9101L),
 	PHARMACIE_EXISTANTE(9102L),
 
+	FICHIER_VIDE(9103L),
+
+	FICHIER_NON_PRIS_EN_CHARGE(9104L),
+
 	ERREUR_INCONNUE(9999L);
 
 	private final Long code;

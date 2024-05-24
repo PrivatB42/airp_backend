@@ -19,7 +19,7 @@ public class PharmacieDto {
 	private String latitude;
 	private String longitude;
 
-	private boolean ouvert;
+	private Boolean ouvert;
 
 	public PharmacieDto() {
 	}
@@ -37,7 +37,7 @@ public class PharmacieDto {
 		this.latitude = pharmacie.getLatitude();
 		this.longitude = pharmacie.getLongitude();
 
-		this.ouvert = now().isBefore(this.heureFermeture) && now().isAfter(this.heureOuverture);
+		this.ouvert = this.heureFermeture != null && this.heureOuverture != null ? now().isBefore(this.heureFermeture) && now().isAfter(this.heureOuverture) : null;
 	}
 
 	public void setNumero(String numero) {
@@ -84,7 +84,7 @@ public class PharmacieDto {
 		this.longitude = longitude;
 	}
 
-	public void setOuvert(boolean ouvert) {
+	public void setOuvert(Boolean ouvert) {
 		this.ouvert = ouvert;
 	}
 
@@ -132,7 +132,7 @@ public class PharmacieDto {
 		return numero;
 	}
 
-	public boolean isOuvert() {
+	public Boolean isOuvert() {
 		return ouvert;
 	}
 }
