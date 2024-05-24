@@ -46,7 +46,12 @@ public class PharmacieController {
         pharmacieFacade.enregistrer(pharmacieDto);
     }
 
-    @PostMapping("/import")
+    /**
+     * Enregistre une pharmacie.
+     *
+     * @param fichier contenant les pharmacies.
+     */
+    @PostMapping("/importer")
     @Logged
     public void importer(@RequestParam("fichier") MultipartFile fichier) throws IOException {
         excelService.enregistrerExcelCsv(fichier);
