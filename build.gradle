@@ -54,7 +54,6 @@ dependencies {
 	implementation "org.flywaydb:flyway-core:$flywaydbVersion"
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-
 	implementation 'org.javatuples:javatuples:1.2'
 
 	// Websocket
@@ -84,6 +83,9 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.11.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+//	testImplementation 'org.mockito:junit-jupiter-api:5.10.2'
 }
 
 
