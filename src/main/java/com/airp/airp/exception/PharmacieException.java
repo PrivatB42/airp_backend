@@ -11,7 +11,6 @@ import static com.airp.airp.exception.configuration.CodeErreurTechnique.PHARMACI
 import static com.airp.airp.exception.configuration.CodeErreurTechnique.FICHIER_NON_PRIS_EN_CHARGE;
 
 import static java.util.Collections.singleton;
-
 public class PharmacieException extends AbstractApplicationException {
 
 	private PharmacieException(CodeErreurTechnique codeErreur, String message) {
@@ -29,7 +28,7 @@ public class PharmacieException extends AbstractApplicationException {
 	 * Exception pour pharmacie deja existante.
 	 */
 	public static PharmacieException pharmacieExistanteException(String code) {
-		return new PharmacieException(PHARMACIE_EXISTANTE, "Une pharmacie existe déjà avec ce code %s", singleton(code));
+		return new PharmacieException(PHARMACIE_EXISTANTE, "Une pharmacie existe déjà avec le code %s", singleton(code));
 	}
 
 	/**

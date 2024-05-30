@@ -97,5 +97,4 @@ public class PharmacieMockBuilder {
         this.longitude = longitude;
         return this;
     }
-
 }

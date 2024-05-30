@@ -3,7 +3,7 @@ package com.airp.airp.facade;
 import com.airp.airp.domain.Pharmacie;
 import com.airp.airp.exception.PharmacieException;
 import com.airp.airp.presentation.dto.PharmacieDto;
-import com.airp.airp.repository.PharmacieRepository;
+import com.airp.airp.repository.JpaPharmacieRepository;
 import com.airp.airp.utils.PharmacieMockBuilder;
 import com.opencsv.CSVWriter;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,10 +24,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Stream;
 
-import static java.time.LocalTime.of;
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,7 +43,7 @@ import static org.mockito.quality.Strictness.LENIENT;
 public class PharmacieFacadeTest {
 
     @Mock
-    private PharmacieRepository pharmacieRepository;
+    private JpaPharmacieRepository pharmacieRepository;
 
     @InjectMocks
     @Spy
@@ -56,19 +56,19 @@ public class PharmacieFacadeTest {
                 .setId(1L)
                 .setNumero("PHA1")
                 .setNom("Pharmacie Z")
-                .setHeureOuverture(of(7, 0))
-                .setHeureFermeture(of(20, 0))
+                .setHeureOuverture(LocalTime.of(7, 0))
+                .setHeureFermeture(LocalTime.of(20, 0))
                 .build();
         Pharmacie pharmacie2 = new PharmacieMockBuilder()
                 .setId(2L)
                 .setNumero("PHA2")
                 .setNom("Pharmacie A")
-                .setHeureOuverture(of(7, 30))
-                .setHeureFermeture(of(20, 0))
+                .setHeureOuverture(LocalTime.of(7, 30))
+                .setHeureFermeture(LocalTime.of(20, 0))
                 .build();
 
-        Stream<Pharmacie> pharmacies = Stream.of(pharmacie, pharmacie2);
-        when(pharmacieRepository.lister()).thenReturn(pharmacies);
+        List<Pharmacie> pharmacies = of(pharmacie, pharmacie2);
+        when(pharmacieRepository.findAll()).thenReturn(pharmacies);
 
         // WHEN
         List<PharmacieDto> pharmacieDtos = pharmacieFacade.lister();
@@ -129,7 +129,6 @@ public class PharmacieFacadeTest {
 //        pharmacieFacade.enregistrerExcelCsv(fichier);
         file.delete();
     }
-
 
     @Test
     public void shouldEnregistrerDonneesCSV_WhenEnregistrerCSV() throws Exception {

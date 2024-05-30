@@ -1,6 +1,5 @@
 package com.airp.airp.domain;
 
-import com.airp.airp.presentation.dto.PharmacieDto;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
@@ -52,8 +51,7 @@ public class Pharmacie extends AbstractEntity {
 	@Column
 	private String contact;
 
-	@Column(nullable = false)
-	private String statut;
+	private String statut = "ACTIF";
 
 	@Column
 	private String latitude;
@@ -62,11 +60,10 @@ public class Pharmacie extends AbstractEntity {
 	private String longitude;
 
 	public Pharmacie() {
-
 	}
 
-	public Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture,
-	                 LocalTime heureFermeture, String nomGerant, String contact, String statut) {
+	protected Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture,
+						LocalTime heureFermeture, String nomGerant, String contact, String statut) {
 		this.numero = numero;
 		this.nom = nom;
 		this.ville = ville;
@@ -78,38 +75,38 @@ public class Pharmacie extends AbstractEntity {
 		this.statut = statut;
 	}
 
+	protected Pharmacie(String numero, String nom, String ville, String quartier, LocalTime heureOuverture,
+						LocalTime heureFermeture, String nomGerant, String contact, String statut, String latitude, String longitude) {
+		this(numero, nom, ville, quartier, heureOuverture, heureFermeture, nomGerant, contact, statut);
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	/**
+	 * Crée une pharmacie en settant le numéro
+	 *
+	 * @param numero le numero de la pharmacie
+	 */
 	public Pharmacie(String numero) {
 		this.numero = numero;
 	}
 
-	public Pharmacie(PharmacieDto pharmacieDto) {
-		this.numero = pharmacieDto.getNumero();
-		this.nom = pharmacieDto.getNom();
-		this.ville = pharmacieDto.getVille();
-		this.quartier = pharmacieDto.getQuartier();
-		this.heureOuverture = pharmacieDto.getHeureOuverture();
-		this.heureFermeture = pharmacieDto.getHeureFermeture();
-		this.nomGerant = pharmacieDto.getNomGerant();
-		this.contact = pharmacieDto.getContact();
-		this.statut = pharmacieDto.getStatut();
-		this.latitude = pharmacieDto.getLatitude();
-		this.longitude = pharmacieDto.getLongitude();
-	}
-
+	/**
+	 * Met à jour les données de la pharmacie
+	 *
+	 * @param pharmacie la pharmacie contenant les données à mettre à jour
+	 */
 	public void mettreAJour(Pharmacie pharmacie) {
-		this.numero = pharmacie.getNumero();
-		this.nom = pharmacie.getNom();
-		this.ville = pharmacie.getVille();
-		this.quartier = pharmacie.getQuartier();
-		this.heureOuverture = pharmacie.getHeureOuverture();
-		this.heureFermeture = pharmacie.getHeureFermeture();
-		this.nomGerant = pharmacie.getNomGerant();
-		this.contact = pharmacie.getContact();
-		this.statut = pharmacie.getStatut();
-	}
-
-	public static PharmacieBuilder builder() {
-		return new PharmacieBuilder();
+		this.setNumero(pharmacie.getNumero());
+		this.setNom(pharmacie.getNom());
+		this.setVille(pharmacie.getVille());
+		this.setQuartier(pharmacie.getQuartier());
+		this.setNomGerant(pharmacie.getNomGerant());
+		this.setContact(pharmacie.getContact());
+		this.setLongitude(pharmacie.getLongitude());
+		this.setLatitude(pharmacie.getLatitude());
+		this.setHeureOuverture(pharmacie.getHeureOuverture());
+		this.setHeureFermeture(pharmacie.getHeureFermeture());
 	}
 
 	public Long getId() {
@@ -158,5 +155,49 @@ public class Pharmacie extends AbstractEntity {
 
 	public String getNumero() {
 		return numero;
+	}
+
+	protected void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	protected void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	protected void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	protected void setQuartier(String quartier) {
+		this.quartier = quartier;
+	}
+
+	protected void setHeureOuverture(LocalTime heureOuverture) {
+		this.heureOuverture = heureOuverture;
+	}
+
+	protected void setHeureFermeture(LocalTime heureFermeture) {
+		this.heureFermeture = heureFermeture;
+	}
+
+	protected void setNomGerant(String nomGerant) {
+		this.nomGerant = nomGerant;
+	}
+
+	protected void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	protected void setStatut(String statut) {
+		this.statut = statut;
+	}
+
+	protected void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	protected void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 }

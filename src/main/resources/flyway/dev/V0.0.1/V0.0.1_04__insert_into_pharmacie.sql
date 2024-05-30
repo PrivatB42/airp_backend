@@ -2,4 +2,20 @@ INSERT INTO public.pharmacie
 (id, numero, nom, ville, quartier, heure_ouverture, heure_fermeture, nom_gerant, contact, latitude, longitude, statut,
  create_at, create_by)
 VALUES (nextval('pharmacie_id_seq'), 'P000001', 'Pharmacie Sainte Famille', 'Abidjan', 'Cocody, Riviera 3', '07:30:00',
-        '20:00:00', 'M. YAPI Abé', '0101010101', ' 5.3556885154656735', '-3.967334690713763', 'ACTIF', now(), 'ayapi');
+        '20:00:00', 'M. YAPI Abé', '0101010101', '5.3556885154656735', '-3.967334690713763', 'ACTIF', now(), 'ayapi'),
+(nextval('pharmacie_id_seq'), 'P000002', 'Pharmacie Sainte Famille', 'Abidjan', 'Cocody, Riviera 3', '07:30:00',
+        '20:00:00', 'M. YAPI Abé', '0101010101', '5.367218838341367', '-3.979375990052081', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000003', 'Pharmacie St Bernard', 'Abidjan', 'Cocody, Riviera Attoban', '08:00:00',
+        '19:30:00', 'M. YAPI Abé', '0101010101', ' 5.3556885154656735', '-3.967334690713763', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000004', E'Pharmacie Riviera M''Badon', 'Abidjan', 'Cocody, Riviera 4', '07:30:00',
+        '20:00:00', 'Dr Posset Kassam', '0101010101', ' 5.332874019404947', '-3.942143387887634', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000005', 'Pharmacie La Redemption', 'Abidjan', 'Cocody, Djibi 3', '08:00:00',
+        '20:00:00', 'M. YAPI Abé', '0101010101', ' 5.4171883065950714', '-3.9747803765562852', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000006', 'Pharmacie Sainte Famille', 'Yamoussoukro', 'Kokrenou', '07:30:00',
+        '20:00:00', 'M. YAPI Abé', '0101010101', '6.785414736908484', '-5.2742518919404935', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000007', 'Pharmacie de Yamoussoukro', 'Yamoussoukro', 'Energie', '07:30:00',
+        '20:00:00', 'M. Agbassi', '0101010101', '6.819919184953154', '-5.278913564972911', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000008', 'Grande Pharmacie de la Capitale', 'Yamoussoukro', 'N''zuessi', '07:30:00',
+        '20:00:00', 'M. YAPI Abé', '0101010101', '6.814474377765284', '-5.264348834941715', 'ACTIF', now(), 'ayapi'),
+ (nextval('pharmacie_id_seq'), 'P000009', 'Pharmacie Cite Olympique', 'Bouaké', 'Cité Olympique', '07:30:00',
+        '19:15:00', 'M. YAPI Abé', '0101010101', '7.685679192992972', '-5.049556276785409', 'ACTIF', now(), 'ayapi');

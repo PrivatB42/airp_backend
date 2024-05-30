@@ -1,9 +1,10 @@
 package com.airp.airp.domain;
 
+import com.airp.airp.presentation.dto.PharmacieDto;
+
 import java.time.LocalTime;
 
 public class PharmacieBuilder {
-
 	private String numero;
 	private String nom;
 	private String ville;
@@ -13,7 +14,30 @@ public class PharmacieBuilder {
 	private String nomGerant;
 	private String contact;
 	private String statut;
+	private String latitude;
+	private String longitude;
 
+	public PharmacieBuilder() {
+	}
+
+	public Pharmacie build(PharmacieDto pharmacieDto) {
+		Pharmacie pharmacie = new Pharmacie();
+		merge(pharmacie, pharmacieDto);
+		return pharmacie;
+	}
+
+	public Pharmacie merge(Pharmacie pharmacie, PharmacieDto pharmacieDto) {
+		pharmacie.setNom(pharmacieDto.getNom());
+		pharmacie.setNumero(pharmacieDto.getNumero());
+		pharmacie.setVille(pharmacieDto.getVille());
+		pharmacie.setQuartier(pharmacieDto.getQuartier());
+		pharmacie.setContact(pharmacieDto.getContact());
+		pharmacie.setLatitude(pharmacieDto.getLatitude());
+		pharmacie.setLongitude(pharmacieDto.getLongitude());
+		pharmacie.setHeureOuverture(pharmacieDto.getHeureOuverture());
+		pharmacie.setHeureFermeture(pharmacieDto.getHeureFermeture());
+		return pharmacie;
+	}
 
 	public PharmacieBuilder setNumero(String numero) {
 		this.numero = numero;
@@ -55,6 +79,16 @@ public class PharmacieBuilder {
 		return this;
 	}
 
+	public PharmacieBuilder setLatitude(String latitude) {
+		this.latitude = latitude;
+		return this;
+	}
+
+	public PharmacieBuilder setLongitude(String longitude) {
+		this.longitude = longitude;
+		return this;
+	}
+
 	public PharmacieBuilder setStatut(String statut) {
 		this.statut = statut;
 		return this;
@@ -70,7 +104,9 @@ public class PharmacieBuilder {
 				this.heureFermeture,
 				this.nomGerant,
 				this.contact,
-				this.statut
+				this.statut,
+				this.latitude,
+				this.longitude
 		);
 	}
 }
